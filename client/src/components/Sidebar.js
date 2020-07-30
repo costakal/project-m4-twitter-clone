@@ -64,6 +64,8 @@ const Wrapper = styled.div`
       padding: 15px;
       color: inherit;
       outline: none;
+      display: flex;
+      align-items: center;
       &:hover {
         color: ${COLORS.primary};
         background: ${COLORS.secondary};

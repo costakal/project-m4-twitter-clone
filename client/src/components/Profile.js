@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
 
 import { CurrentUserContext } from "./CurrentUserContext";
@@ -7,14 +8,23 @@ const Profile = () => {
   const { currentUser, status } = useContext(CurrentUserContext);
 
   if (status === "idle") {
-    console.log(currentUser);
     const user = currentUser.profile;
     return (
       <Wrapper>
         <Banner src={user.bannerSrc} />
         <ProfilePic src={user.avatarSrc} />
+        <button>Follow</button>
+        <p>{user.displayName}</p>
         <p>@{user.handle}</p>
         <p>{user.bio}</p>
+        <p>
+          <FiMapPin />
+          {user.location}
+        </p>
+        <p>
+          <FiCalendar />
+          {user.joined}
+        </p>
       </Wrapper>
     );
   } else {
