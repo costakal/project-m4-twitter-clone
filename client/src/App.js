@@ -15,8 +15,8 @@ const App = () => {
     <>
       <GlobalStyles />
       <Router>
+        <Sidebar />
         <Wrapper>
-          <Sidebar />
           <Switch>
             <Route exact path="/">
               <Homefeed />
@@ -35,6 +35,7 @@ const App = () => {
             </Route>
           </Switch>
         </Wrapper>
+        <RightSideSpace />
       </Router>
     </>
   );
@@ -43,5 +44,14 @@ const App = () => {
 export default App;
 
 const Wrapper = styled.div`
-  display: flex;
+  margin-left: 276px;
+  margin-right: 101px;
+  border-right: 1px solid lightgray;
+`;
+
+const RightSideSpace = styled.div`
+  position: fixed;
+  right: 100px;
+  height: 100vh;
+  border-left: 1px solid lightgray;
 `;

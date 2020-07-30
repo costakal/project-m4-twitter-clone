@@ -40,13 +40,14 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Wrapper = styled.div`
-  padding: 0px 15px 0px 150px;
+  position: fixed;
+  padding: 0px 15px 0px 40px;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 230px;
+  min-width: 220px;
   z-index: 1;
-  border-right: 1px solid grey;
+  border-right: 1px solid lightgrey;
   a {
     display: flex;
     cursor: default;
