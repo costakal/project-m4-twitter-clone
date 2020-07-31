@@ -1,11 +1,11 @@
 import React from "react";
 
-import Tweet from "./Tweet";
+import TweetFeed from "./TweetFeed";
 
 const HomeFeed = () => {
   return (
     <>
-      <Tweet />
+      <TweetFeed />
     </>
   );
 };

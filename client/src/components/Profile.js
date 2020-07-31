@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
-
-import { CurrentUserContext } from "./CurrentUserContext";
+import { useParams } from "react-router-dom";
+// /costa55
 
 const Profile = () => {
-  const { currentUser, status } = useContext(CurrentUserContext);
+  const [handle, setHandle] = useState(null);
+  const [status, setStatus] = useState("loading");
+  const { profileId } = useParams();
+
+  useEffect(() => {
+    fetch(`/api/${profileId}/profile`)
+      .then((res) => res.json())
+      .then((data) => {
+        setHandle(data);
+        setStatus("idle");
+      });
+  }, []);
 
   if (status === "idle") {
-    const user = currentUser.profile;
+    const user = handle.profile;
     return (
       <Wrapper>
         <Banner src={user.bannerSrc} />

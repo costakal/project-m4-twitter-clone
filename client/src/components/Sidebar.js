@@ -1,40 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { COLORS } from "../constants";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Sidebar = () => {
-  return (
-    <Wrapper>
-      <Logo style={{ margin: "15px 0px" }} />
-      <NavLink exact to="/" activeStyle={{ color: COLORS.primary }}>
-        <button>
-          <FiHome />
-          <span>Home</span>
-        </button>
-      </NavLink>
-      <NavLink to="/:profileId" activeStyle={{ color: COLORS.primary }}>
-        <button>
-          <FiUser />
-          <span>Profile</span>
-        </button>
-      </NavLink>
-      <NavLink to="/notifications" activeStyle={{ color: COLORS.primary }}>
-        <button>
-          <FiBell />
-          <span>Notifications</span>
-        </button>
-      </NavLink>
-      <NavLink to="/bookmarks" activeStyle={{ color: COLORS.primary }}>
-        <button>
-          <FiBookmark />
-          <span>Bookmarks</span>
-        </button>
-      </NavLink>
-    </Wrapper>
-  );
+  const { currentUser, status } = useContext(CurrentUserContext);
+  console.log(currentUser);
+  console.log(status);
+  if (status === "idle") {
+    return (
+      <Wrapper>
+        <Logo style={{ margin: "15px 0px" }} />
+        <NavLink exact to="/" activeStyle={{ color: COLORS.primary }}>
+          <button>
+            <FiHome />
+            <span>Home</span>
+          </button>
+        </NavLink>
+        <NavLink
+          to={`/${currentUser.profile.handle}`}
+          activeStyle={{ color: COLORS.primary }}
+        >
+          <button>
+            <FiUser />
+            <span>Profile</span>
+          </button>
+        </NavLink>
+        <NavLink to="/notifications" activeStyle={{ color: COLORS.primary }}>
+          <button>
+            <FiBell />
+            <span>Notifications</span>
+          </button>
+        </NavLink>
+        <NavLink to="/bookmarks" activeStyle={{ color: COLORS.primary }}>
+          <button>
+            <FiBookmark />
+            <span>Bookmarks</span>
+          </button>
+        </NavLink>
+      </Wrapper>
+    );
+  } else {
+    return <div>Still Loading</div>;
+  }
 };
 
 export default Sidebar;

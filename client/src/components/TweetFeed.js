@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { FiHeart, FiDownload, FiMessageCircle, FiRepeat } from "react-icons/fi";
 
 import { CurrentUserContext } from "./CurrentUserContext";
+import ActionBar from "./ActionBar";
 
-const Tweet = () => {
+const TweetFeed = () => {
   const { homeFeed, homeFeedStatus } = useContext(CurrentUserContext);
 
   if (homeFeedStatus === "idle") {
     const tweetFeedObj = Object.values(homeFeed.tweetsById);
-
     return (
       <div>
         {tweetFeedObj.map((tweetObj) => {
@@ -26,18 +25,7 @@ const Tweet = () => {
                   return <FeedContentImg key="content-img" src={photo.url} />;
                 }
               })}
-              <button>
-                <FiMessageCircle />
-              </button>
-              <button>
-                <FiRepeat />
-              </button>
-              <button>
-                <FiHeart />
-              </button>
-              <button>
-                <FiDownload />
-              </button>
+              <ActionBar />
             </TweetBox>
           );
         })}
@@ -48,7 +36,7 @@ const Tweet = () => {
   }
 };
 
-export default Tweet;
+export default TweetFeed;
 
 const TweetBox = styled.div`
   border: solid 1px lightgray;
