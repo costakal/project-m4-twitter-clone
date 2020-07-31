@@ -24,9 +24,15 @@ const TweetFeed = () => {
                 <FeedDisplayImg src={tweetObj.author.avatarSrc} />
                 <ProfileLink
                   tabIndex="0"
+                  aria-label="View Tweet"
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
+                  onMouseDown={() => {
                     history.push(`/${tweetObj.author.handle}`);
+                  }}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      history.push(`/${tweetObj.author.handle}`);
+                    }
                   }}
                 >
                   <p>{tweetObj.author.displayName}</p>

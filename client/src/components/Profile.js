@@ -63,4 +63,6 @@ const ProfilePic = styled.img`
 const Banner = styled.img`
   margin-bottom: 100px;
   height: 250px;
+  object-fit: cover;
+  object-position: center;
 `;
