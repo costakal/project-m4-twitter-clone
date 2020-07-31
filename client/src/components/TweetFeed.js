@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 
@@ -7,6 +8,7 @@ import ActionBar from "./ActionBar";
 
 const TweetFeed = () => {
   const { homeFeed, homeFeedStatus } = useContext(CurrentUserContext);
+  const history = useHistory();
 
   if (homeFeedStatus === "idle") {
     const tweetFeedObj = Object.values(homeFeed.tweetsById);
@@ -14,19 +16,32 @@ const TweetFeed = () => {
       <div>
         {tweetFeedObj.map((tweetObj) => {
           return (
-            <TweetBox key={tweetObj.id}>
-              <FeedDisplayImg src={tweetObj.author.avatarSrc} />
-              <p>{tweetObj.author.displayName}</p>
-              <p>{tweetObj.author.handle}</p>
-              <p>{moment(tweetObj.timestamp).format("MMM Do")}</p>
-              <p>{tweetObj.status}</p>
-              {tweetObj.media.map((photo) => {
-                if (photo !== []) {
-                  return <FeedContentImg key="content-img" src={photo.url} />;
-                }
-              })}
-              <ActionBar />
-            </TweetBox>
+            <Link
+              to={`/tweet/${tweetObj.id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <TweetBox key={tweetObj.id}>
+                <FeedDisplayImg src={tweetObj.author.avatarSrc} />
+                <ProfileLink
+                  tabIndex="0"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    history.push(`/${tweetObj.author.handle}`);
+                  }}
+                >
+                  <p>{tweetObj.author.displayName}</p>
+                </ProfileLink>
+                <p>{tweetObj.author.handle}</p>
+                <p>{moment(tweetObj.timestamp).format("MMM Do")}</p>
+                <p>{tweetObj.status}</p>
+                {tweetObj.media.map((photo) => {
+                  if (photo !== []) {
+                    return <FeedContentImg key="content-img" src={photo.url} />;
+                  }
+                })}
+                <ActionBar />
+              </TweetBox>
+            </Link>
           );
         })}
       </div>
@@ -40,6 +55,13 @@ export default TweetFeed;
 
 const TweetBox = styled.div`
   border: solid 1px lightgray;
+`;
+
+const ProfileLink = styled.div`
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const FeedDisplayImg = styled.img`

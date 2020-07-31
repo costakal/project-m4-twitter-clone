@@ -8,8 +8,6 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const Sidebar = () => {
   const { currentUser, status } = useContext(CurrentUserContext);
-  console.log(currentUser);
-  console.log(status);
   if (status === "idle") {
     return (
       <Wrapper>
@@ -44,7 +42,7 @@ const Sidebar = () => {
       </Wrapper>
     );
   } else {
-    return <div>Still Loading</div>;
+    return <div></div>;
   }
 };
 

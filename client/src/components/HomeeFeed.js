@@ -5,6 +5,7 @@ import TweetFeed from "./TweetFeed";
 const HomeFeed = () => {
   return (
     <>
+      <h2>Home</h2>
       <TweetFeed />
     </>
   );

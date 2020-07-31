@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-// /costa55
 
 const Profile = () => {
   const [handle, setHandle] = useState(null);
   const [status, setStatus] = useState("loading");
   const { profileId } = useParams();
 
+  console.log(useParams());
+
   useEffect(() => {
     fetch(`/api/${profileId}/profile`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setHandle(data);
         setStatus("idle");
       });
