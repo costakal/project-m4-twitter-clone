@@ -56,7 +56,7 @@ const Wrapper = styled.div`
   height: 100vh;
   min-width: 220px;
   z-index: 1;
-  border-right: 1px solid lightgrey;
+  border-right: 1px solid #f0f0f0;
   a {
     display: flex;
     cursor: default;

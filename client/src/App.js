@@ -46,12 +46,12 @@ export default App;
 const Wrapper = styled.div`
   margin-left: 276px;
   margin-right: 101px;
-  border-right: 1px solid lightgray;
+  border-right: 1px solid #f0f0f0;
 `;
 
 const RightSideSpace = styled.div`
   position: fixed;
   right: 100px;
   height: 100vh;
-  border-left: 1px solid lightgray;
+  border-left: 1px solid #f0f0f0;
 `;

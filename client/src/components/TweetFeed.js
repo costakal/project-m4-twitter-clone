@@ -12,6 +12,7 @@ const TweetFeed = () => {
 
   if (homeFeedStatus === "idle") {
     const tweetFeedObj = Object.values(homeFeed.tweetsById);
+    console.log(tweetFeedObj);
     return (
       <div>
         {tweetFeedObj.map((tweetObj) => {
@@ -60,7 +61,7 @@ const TweetFeed = () => {
 export default TweetFeed;
 
 const TweetBox = styled.div`
-  border: solid 1px lightgray;
+  border: solid 1px #f0f0f0;
 `;
 
 const ProfileLink = styled.div`
