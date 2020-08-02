@@ -5,63 +5,56 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { COLORS } from "../constants";
 
 const TweetInput = () => {
-  const { currentUser, status } = useContext(CurrentUserContext);
-  const [newTweet, setNewTweet] = useState(null);
+  const { currentUser, status, handleTweetPost } = useContext(
+    CurrentUserContext
+  );
+  const [newTweet, setNewTweet] = useState("");
   const [charCount, setCharCount] = useState(280);
   const [disable, setDisable] = useState(true);
   const [countColor, setCountColor] = useState("#d0d0d0");
 
   useEffect(() => {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status: "your text here" }),
-    };
-    fetch("/api/tweet", requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        setNewTweet(data);
-      });
-  }, []);
-
-  const handleDisable = () => {
-    if (charCount > 280 && charCount < 0) {
+    if (charCount >= 280 || charCount < 0) {
       setDisable(true);
     } else {
       setDisable(false);
     }
-  };
-
-  const handleColor = () => {
-    if (charCount < 55) {
-      return "yellow";
-    } else if (charCount < 0) {
-      return "red";
+    if (charCount < 55 && charCount > 0) {
+      setCountColor("yellow");
+    } else if (charCount <= 0) {
+      setCountColor("red");
+    } else {
+      setCountColor("#d0d0d0");
     }
-  };
+  }, [charCount]);
 
   if (status === "idle") {
     return (
       <>
-        <form>
-          <InputBox>
-            <MeowPhoto src={currentUser.profile.avatarSrc} />
-            <textarea
-              type="text"
-              name="meow"
-              placeholder="What's happening?"
-              style={{ resize: "none", fontFamily: "sans-serif" }}
-              onChange={(event) => {
-                setCharCount(280 - event.target.value.length);
-              }}
-            />
-            <CharacterCounter>{charCount}</CharacterCounter>
-            <MeowButton disabled={disable}>Meow</MeowButton>
-          </InputBox>
-        </form>
+        <InputBox>
+          <MeowPhoto src={currentUser.profile.avatarSrc} />
+          <textarea
+            type="text"
+            name="meow"
+            placeholder="What's happening?"
+            style={{ resize: "none", fontFamily: "sans-serif" }}
+            onChange={(event) => {
+              setNewTweet(event.target.value);
+              setCharCount(280 - event.target.value.length);
+            }}
+          />
+          <CharacterCounter style={{ color: countColor }}>
+            {charCount}
+          </CharacterCounter>
+          <MeowButton
+            disabled={disable}
+            onClick={() => {
+              handleTweetPost(newTweet);
+            }}
+          >
+            Meow
+          </MeowButton>
+        </InputBox>
       </>
     );
   } else {
@@ -72,6 +65,7 @@ const TweetInput = () => {
 export default TweetInput;
 
 const InputBox = styled.div`
+  position: relative;
   display: flex;
   border-bottom: 10px solid ${COLORS.border};
   textarea {
@@ -99,8 +93,8 @@ const MeowPhoto = styled.img`
 
 const MeowButton = styled.button`
   position: absolute;
-  top: 185px;
-  left: 965px;
+  top: 135px;
+  right: 5px;
   margin: 10px;
   padding: 12px 18px;
   color: white;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import moment from "moment";
 
 import ActionBar from "./ActionBar";
@@ -23,6 +24,7 @@ const TweetDetails = () => {
     const singleTweet = tweet.tweet;
     return (
       <div key={singleTweet.id}>
+        <div></div>
         <img src={singleTweet.author.avatarSrc} />
         <p>{singleTweet.author.displayName}</p>
         <p>{singleTweet.author.handle}</p>

@@ -27,9 +27,43 @@ const CurrentUserProvider = ({ children }) => {
       });
   }, []);
 
+  const handleTweetPost = (text) => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: text }),
+    };
+    fetch("/api/tweet", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        fetch(`/api/tweet/${data.tweet.id}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((newData) => {
+            const updatedArray = [...homeFeed.tweetIds, newData.tweet.id];
+            const updatedObject = {
+              ...homeFeed.tweetsById,
+              [newData.tweet.id]: newData.tweet,
+            };
+            setHomeFeedStatus("loading");
+            setHomeFeed({ tweetIds: updatedArray, tweetsById: updatedObject });
+            setHomeFeedStatus("idle");
+          });
+      });
+  };
+
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, status, homeFeed, homeFeedStatus }}
+      value={{ currentUser, status, homeFeed, homeFeedStatus, handleTweetPost }}
     >
       {children}
     </CurrentUserContext.Provider>
