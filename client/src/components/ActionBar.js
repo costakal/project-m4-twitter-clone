@@ -6,50 +6,34 @@ import ActionButton from "./ActionButton";
 const ActionBar = ({ data }) => {
   return (
     <ButtonSection>
-      <CommentButton>
+      <ActionButton color="rgb(27, 149, 224)" size={40}>
         <FiMessageCircle />
-      </CommentButton>
-      <RetweetButton>
+      </ActionButton>
+      <ActionButton color="rgb(23, 191, 99)" size={40}>
+        {/* onClick={handleToggleRetweet} */}
         <FiRepeat />
-      </RetweetButton>
-      <LikeButton>
+      </ActionButton>
+      <ActionButton color="rgb(224, 36, 94)" size={40}>
+        {/* onClick={handleToggleLike} */}
         <FiHeart />
-      </LikeButton>
-      <SaveButton>
+      </ActionButton>
+      <ActionButton color="rgb(27, 149, 224)" size={40}>
         <FiDownload />
-      </SaveButton>
+      </ActionButton>
     </ButtonSection>
   );
 };
-
-{
-  /* <Wrapper>
-<Action color="rgb(27, 149, 224)" size={40}>
-  <TweetActionIcon kind="reply" />
-</Action>
-<Action color="rgb(23, 191, 99)" size={40}>
-  <TweetActionIcon
-    kind="retweet"
-    color={isRetweetedByCurrentUser ? "rgb(23, 191, 99)" : undefined}
-  />
-</Action>
-<Action color="rgb(224, 36, 94)" size={40}>
-  <LikeButton isLiked={isLikedByCurrentUser} />
-</Action>
-<Action color="rgb(27, 149, 224)" size={40}>
-  <TweetActionIcon kind="share" />
-</Action> */
-}
 
 const ButtonSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: 48px;
+  max-width: 750px;
   button {
     padding: 5px;
     background-color: transparent;
-    border: 1px solid grey;
+    border: none;
     border-radius: 25px;
     color: black;
     cursor: pointer;
@@ -58,9 +42,5 @@ const ButtonSection = styled.div`
     }
   }
 `;
-const CommentButton = styled.button``;
-const RetweetButton = styled.button``;
-const LikeButton = styled.button``;
-const SaveButton = styled.button``;
 
 export default ActionBar;

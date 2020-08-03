@@ -9,8 +9,12 @@ const Tweet = ({ tweetObj }) => {
   const history = useHistory();
   return (
     <>
-      <Link
-        to={`/tweet/${tweetObj.id}`}
+      <div
+        onClick={(ev) => {
+          ev.stopPropagation();
+          console.log("Tweet Object ", tweetObj);
+          history.push(`/tweet/${tweetObj.id}`);
+        }}
         style={{ textDecoration: "none", color: "black" }}
       >
         <TweetBox key={tweetObj.id}>
@@ -23,7 +27,9 @@ const Tweet = ({ tweetObj }) => {
                   tabIndex="0"
                   aria-label="View Tweet"
                   style={{ cursor: "pointer" }}
-                  onMouseDown={() => {
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    console.log("Tweet Object ", tweetObj);
                     history.push(`/${tweetObj.author.handle}`);
                   }}
                   onKeyPress={(event) => {
@@ -52,7 +58,7 @@ const Tweet = ({ tweetObj }) => {
           </TweetSection>
           <ActionBar />
         </TweetBox>
-      </Link>
+      </div>
     </>
   );
 };

@@ -25,7 +25,7 @@ const Profile = () => {
         setHandle(data);
         setStatus("idle");
       });
-  }, []);
+  }, [profileId]);
 
   if (error === true) {
     return <ErrorScreen />;
