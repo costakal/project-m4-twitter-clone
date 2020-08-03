@@ -7,6 +7,7 @@ const CurrentUserProvider = ({ children }) => {
   const [status, setStatus] = useState("loading");
   const [homeFeed, setHomeFeed] = useState(null);
   const [homeFeedStatus, setHomeFeedStatus] = useState("loading");
+  const [updatedFeed, setUpdatedFeed] = useState(false);
 
   useEffect(() => {
     fetch(`/api/me/profile`)
@@ -25,7 +26,7 @@ const CurrentUserProvider = ({ children }) => {
         setHomeFeed(data);
         setHomeFeedStatus("idle");
       });
-  }, []);
+  }, [updatedFeed]);
 
   const handleTweetPost = (text) => {
     const requestOptions = {
@@ -57,6 +58,7 @@ const CurrentUserProvider = ({ children }) => {
             setHomeFeedStatus("loading");
             setHomeFeed({ tweetIds: updatedArray, tweetsById: updatedObject });
             setHomeFeedStatus("idle");
+            setUpdatedFeed(!updatedFeed);
           });
       });
   };

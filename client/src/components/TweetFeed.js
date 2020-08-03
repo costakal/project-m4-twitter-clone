@@ -11,7 +11,7 @@ const TweetFeed = () => {
       <div>
         {homeFeed.tweetIds.map((tweetId) => {
           const tweetObj = homeFeed.tweetsById[tweetId];
-          return <Tweet tweetObj={tweetObj} />;
+          return <Tweet key={tweetId} tweetObj={tweetObj} />;
         })}
       </div>
     );

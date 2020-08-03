@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ActionBar from "./ActionBar";
+import Retweets from "./Retweets";
 
 const Tweet = ({ tweetObj }) => {
   const history = useHistory();
@@ -13,6 +14,7 @@ const Tweet = ({ tweetObj }) => {
         style={{ textDecoration: "none", color: "black" }}
       >
         <TweetBox key={tweetObj.id}>
+          <Retweets tweetObj={tweetObj} />
           <TweetSection>
             <FeedDisplayImg src={tweetObj.author.avatarSrc} />
             <TweetContent>

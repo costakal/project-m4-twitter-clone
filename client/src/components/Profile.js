@@ -3,7 +3,7 @@ import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import TweetFeed from "./TweetFeed";
+import ProfileFeed from "./ProfileFeed";
 
 const Profile = () => {
   const [handle, setHandle] = useState(null);
@@ -40,7 +40,7 @@ const Profile = () => {
           <FiCalendar />
           {user.joined}
         </p>
-        <TweetFeed />
+        <ProfileFeed />
       </Wrapper>
     );
   } else {
