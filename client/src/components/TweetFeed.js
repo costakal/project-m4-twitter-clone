@@ -2,9 +2,14 @@ import React, { useContext } from "react";
 
 import { CurrentUserContext } from "./CurrentUserContext";
 import Tweet from "./Tweet";
+import ErrorScreen from "./Errors/ErrorScreen";
 
 const TweetFeed = () => {
-  const { homeFeed, homeFeedStatus } = useContext(CurrentUserContext);
+  const { homeFeed, homeFeedStatus, error } = useContext(CurrentUserContext);
+
+  if (error === true) {
+    return <ErrorScreen />;
+  }
 
   if (homeFeedStatus === "idle") {
     return (

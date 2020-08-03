@@ -8,6 +8,8 @@ const CurrentUserProvider = ({ children }) => {
   const [homeFeed, setHomeFeed] = useState(null);
   const [homeFeedStatus, setHomeFeedStatus] = useState("loading");
   const [updatedFeed, setUpdatedFeed] = useState(false);
+  const [error, setError] = useState(false);
+  const [postError, setPostError] = useState(false);
 
   useEffect(() => {
     fetch(`/api/me/profile`)
@@ -15,6 +17,10 @@ const CurrentUserProvider = ({ children }) => {
       .then((data) => {
         setCurrentUser(data);
         setStatus("idle");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(true);
       });
   }, []);
 
@@ -25,6 +31,10 @@ const CurrentUserProvider = ({ children }) => {
         console.log(data);
         setHomeFeed(data);
         setHomeFeedStatus("idle");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(true);
       });
   }, [updatedFeed]);
 
@@ -39,33 +49,27 @@ const CurrentUserProvider = ({ children }) => {
     };
     fetch("/api/tweet", requestOptions)
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        fetch(`/api/tweet/${data.tweet.id}`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((newData) => {
-            const updatedArray = [...homeFeed.tweetIds, newData.tweet.id];
-            const updatedObject = {
-              ...homeFeed.tweetsById,
-              [newData.tweet.id]: newData.tweet,
-            };
-            setHomeFeedStatus("loading");
-            setHomeFeed({ tweetIds: updatedArray, tweetsById: updatedObject });
-            setHomeFeedStatus("idle");
-            setUpdatedFeed(!updatedFeed);
-          });
+      .then((newData) => {
+        console.log(newData);
+        setUpdatedFeed(!updatedFeed);
+      })
+      .catch((error) => {
+        console.log(error);
+        setPostError(true);
       });
   };
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, status, homeFeed, homeFeedStatus, handleTweetPost }}
+      value={{
+        currentUser,
+        status,
+        homeFeed,
+        homeFeedStatus,
+        handleTweetPost,
+        error,
+        postError,
+      }}
     >
       {children}
     </CurrentUserContext.Provider>

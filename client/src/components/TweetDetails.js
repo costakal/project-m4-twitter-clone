@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 
 import ActionBar from "./ActionBar";
+import ErrorScreen from "./Errors/ErrorScreen";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const TweetDetails = () => {
+  const { error } = useContext(CurrentUserContext);
   const [tweet, setTweet] = useState(null);
   const [status, setStatus] = useState("loading");
   const { tweetId } = useParams();
@@ -19,6 +22,10 @@ const TweetDetails = () => {
         setStatus("idle");
       });
   }, []);
+
+  if (error === true) {
+    return <ErrorScreen />;
+  }
 
   if (status === "idle") {
     const singleTweet = tweet.tweet;

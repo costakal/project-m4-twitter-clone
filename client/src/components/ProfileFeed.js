@@ -3,11 +3,15 @@ import { useParams } from "react-router-dom";
 
 import { CurrentUserContext } from "./CurrentUserContext";
 import Tweet from "./Tweet";
-import ErrorScreen from "./ErrorScreen";
+import ErrorScreen from "./Errors/ErrorScreen";
 
 const ProfileFeed = () => {
-  const { homeFeed, homeFeedStatus } = useContext(CurrentUserContext);
+  const { homeFeed, homeFeedStatus, error } = useContext(CurrentUserContext);
   const { profileId } = useParams();
+
+  if (error === true) {
+    return <ErrorScreen />;
+  }
 
   if (homeFeedStatus === "idle") {
     return (

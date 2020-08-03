@@ -28,7 +28,6 @@ const Error = styled.div`
     padding: 40px 20px;
   }
   p {
-    text-align: left;
     font-size: 18px;
   }
 `;

@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 import { CurrentUserContext } from "./CurrentUserContext";
 import { COLORS } from "../constants";
+import ErrorScreen from "./Errors/ErrorScreen";
 
 const TweetInput = () => {
-  const { currentUser, status, handleTweetPost } = useContext(
+  const { currentUser, status, handleTweetPost, postError } = useContext(
     CurrentUserContext
   );
   const [newTweet, setNewTweet] = useState("");
@@ -27,6 +28,14 @@ const TweetInput = () => {
       setCountColor("#d0d0d0");
     }
   }, [charCount]);
+
+  if (postError === true) {
+    return (
+      <div>
+        <ErrorScreen />
+      </div>
+    );
+  }
 
   if (status === "idle") {
     return (

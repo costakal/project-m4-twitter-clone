@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import ProfileFeed from "./ProfileFeed";
+import ErrorScreen from "./Errors/ErrorScreen";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Profile = () => {
+  const { error } = useContext(CurrentUserContext);
+
   const [handle, setHandle] = useState(null);
   const [status, setStatus] = useState("loading");
   const { profileId } = useParams();
@@ -21,6 +25,10 @@ const Profile = () => {
         setStatus("idle");
       });
   }, []);
+
+  if (error === true) {
+    return <ErrorScreen />;
+  }
 
   if (status === "idle") {
     const user = handle.profile;
