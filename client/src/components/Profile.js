@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import ProfileFeed from "./ProfileFeed";
 import ErrorScreen from "./Errors/ErrorScreen";
 import { CurrentUserContext } from "./CurrentUserContext";
+import LoadingWheel from "./LoadingWheel";
 
 const Profile = () => {
   const { error } = useContext(CurrentUserContext);
@@ -52,7 +53,11 @@ const Profile = () => {
       </Wrapper>
     );
   } else {
-    return <div>Still Loading</div>;
+    return (
+      <LoadingDiv>
+        <LoadingWheel />
+      </LoadingDiv>
+    );
   }
 };
 
@@ -76,4 +81,8 @@ const Banner = styled.img`
   height: 250px;
   object-fit: cover;
   object-position: center;
+`;
+
+const LoadingDiv = styled.div`
+  align-items: center;
 `;

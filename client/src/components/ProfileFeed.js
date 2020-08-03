@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { CurrentUserContext } from "./CurrentUserContext";
 import Tweet from "./Tweet";
 import ErrorScreen from "./Errors/ErrorScreen";
+import LoadingWheel from "./LoadingWheel";
 
 const ProfileFeed = () => {
   const { homeFeed, homeFeedStatus, error } = useContext(CurrentUserContext);
@@ -30,7 +31,11 @@ const ProfileFeed = () => {
       </div>
     );
   } else {
-    return <div>Still loading</div>;
+    return (
+      <div>
+        <LoadingWheel />
+      </div>
+    );
   }
 };
 

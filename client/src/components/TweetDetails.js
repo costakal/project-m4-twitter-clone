@@ -6,6 +6,7 @@ import moment from "moment";
 import ActionBar from "./ActionBar";
 import ErrorScreen from "./Errors/ErrorScreen";
 import { CurrentUserContext } from "./CurrentUserContext";
+import LoadingWheel from "./LoadingWheel";
 
 const TweetDetails = () => {
   const { error } = useContext(CurrentUserContext);
@@ -46,7 +47,11 @@ const TweetDetails = () => {
       </div>
     );
   } else {
-    return <div>Still loading</div>;
+    return (
+      <div>
+        <LoadingWheel />
+      </div>
+    );
   }
 };
 

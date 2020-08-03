@@ -30,11 +30,7 @@ const TweetInput = () => {
   }, [charCount]);
 
   if (postError === true) {
-    return (
-      <div>
-        <ErrorScreen />
-      </div>
-    );
+    return <ErrorScreen />;
   }
 
   if (status === "idle") {

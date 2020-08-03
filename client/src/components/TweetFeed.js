@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import Tweet from "./Tweet";
 import ErrorScreen from "./Errors/ErrorScreen";
+import LoadingWheel from "./LoadingWheel";
 
 const TweetFeed = () => {
   const { homeFeed, homeFeedStatus, error } = useContext(CurrentUserContext);
@@ -21,7 +22,11 @@ const TweetFeed = () => {
       </div>
     );
   } else {
-    return <div>Still Loading</div>;
+    return (
+      <div>
+        <LoadingWheel />
+      </div>
+    );
   }
 };
 
