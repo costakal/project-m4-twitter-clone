@@ -15,8 +15,6 @@ const Profile = () => {
   const [status, setStatus] = useState("loading");
   const { profileId } = useParams();
 
-  console.log(useParams());
-
   useEffect(() => {
     fetch(`/api/${profileId}/profile`)
       .then((res) => res.json())

@@ -1,15 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { CurrentUserContext } from "./CurrentUserContext";
 import Tweet from "./Tweet";
 import ErrorScreen from "./Errors/ErrorScreen";
 import LoadingWheel from "./LoadingWheel";
 
 const ProfileFeed = () => {
-  const { error } = useContext(CurrentUserContext);
   const { profileId } = useParams();
   const [profileFeed, setProfileFeed] = useState(null);
+  const [profileFeedError, setProfileFeedError] = useState(false);
 
   useEffect(() => {
     fetch(`/api/${profileId}/feed`)
@@ -17,10 +16,14 @@ const ProfileFeed = () => {
       .then((data) => {
         console.log(data);
         setProfileFeed(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setProfileFeedError(true);
       });
-  }, []);
+  }, [profileId]);
 
-  if (error === true) {
+  if (profileFeedError === true) {
     return <ErrorScreen />;
   }
 
