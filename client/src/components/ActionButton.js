@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const ActionButton = ({ color, size, children }) => {
+const ActionButton = ({ color, size, children, onClick }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   return (
     <Wrapper
-      onClick={(ev) => {
-        ev.preventDefault();
-        console.log("You pressed the button");
-      }}
+      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       circleColor={color}

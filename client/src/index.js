@@ -3,13 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 import CurrentUserProvider from "./components/CurrentUserContext";
-import SocialsContextProvider from "./components/SocialsContext";
 
 ReactDOM.render(
   <CurrentUserProvider>
-    <SocialsContextProvider>
-      <App />
-    </SocialsContextProvider>
+    <App />
   </CurrentUserProvider>,
   document.getElementById("root")
 );

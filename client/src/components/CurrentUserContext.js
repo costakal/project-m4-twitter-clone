@@ -59,6 +59,44 @@ const CurrentUserProvider = ({ children }) => {
       });
   };
 
+  const handleLike = (tweetId, isLiked) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ like: !isLiked }),
+    };
+    fetch(`/api/tweet/${tweetId}/like`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdatedFeed(!updatedFeed);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleRetweet = (tweetId, isRetweeted) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ retweet: !isRetweeted }),
+    };
+    fetch(`/api/tweet/${tweetId}/retweet`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdatedFeed(!updatedFeed);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -69,6 +107,8 @@ const CurrentUserProvider = ({ children }) => {
         handleTweetPost,
         error,
         postError,
+        handleLike,
+        handleRetweet,
       }}
     >
       {children}

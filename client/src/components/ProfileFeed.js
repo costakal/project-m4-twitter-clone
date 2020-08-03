@@ -6,9 +6,10 @@ import ErrorScreen from "./Errors/ErrorScreen";
 import LoadingWheel from "./LoadingWheel";
 
 const ProfileFeed = () => {
-  const { profileId } = useParams();
   const [profileFeed, setProfileFeed] = useState(null);
   const [profileFeedError, setProfileFeedError] = useState(false);
+  const { profileId } = useParams();
+  console.log(profileId);
 
   useEffect(() => {
     fetch(`/api/${profileId}/feed`)

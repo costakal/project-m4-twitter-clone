@@ -9,54 +9,64 @@ const Tweet = ({ tweetObj }) => {
   const history = useHistory();
   return (
     <>
-      <div
-        onClick={(ev) => {
-          ev.stopPropagation();
-          console.log("Tweet Object ", tweetObj);
-          history.push(`/tweet/${tweetObj.id}`);
-        }}
-        style={{ textDecoration: "none", color: "black" }}
-      >
+      <div>
         <TweetBox key={tweetObj.id}>
-          <Retweets tweetObj={tweetObj} />
-          <TweetSection>
-            <FeedDisplayImg src={tweetObj.author.avatarSrc} />
-            <TweetContent>
-              <TweetProfileInfo>
-                <ProfileLink
-                  tabIndex="0"
-                  aria-label="View Tweet"
-                  style={{ cursor: "pointer" }}
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    console.log("Tweet Object ", tweetObj);
-                    history.push(`/${tweetObj.author.handle}`);
-                  }}
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter") {
+          <div
+            onClick={(ev) => {
+              ev.stopPropagation();
+              console.log("Tweet Object ", tweetObj);
+              history.push(`/tweet/${tweetObj.id}`);
+            }}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <Retweets tweetObj={tweetObj} />
+            <TweetSection>
+              <FeedDisplayImg src={tweetObj.author.avatarSrc} />
+              <TweetContent>
+                <TweetProfileInfo>
+                  <ProfileLink
+                    tabIndex="0"
+                    aria-label="View Tweet"
+                    style={{ cursor: "pointer" }}
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      console.log("Tweet Object ", tweetObj);
                       history.push(`/${tweetObj.author.handle}`);
-                    }
-                  }}
-                >
-                  <ProfileDisplayName>
-                    {tweetObj.author.displayName}
-                  </ProfileDisplayName>
-                </ProfileLink>
-                <SmallText>
-                  <p>@{tweetObj.author.handle}</p>
-                  <p>·</p>
-                  <p>{moment(tweetObj.timestamp).format("MMM Do")}</p>
-                </SmallText>
-              </TweetProfileInfo>
-              <TweetStatus>{tweetObj.status}</TweetStatus>
-              {tweetObj.media.map((photo) => {
-                if (photo !== []) {
-                  return <FeedContentImg key="content-img" src={photo.url} />;
-                }
-              })}
-            </TweetContent>
-          </TweetSection>
-          <ActionBar />
+                    }}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        history.push(`/${tweetObj.author.handle}`);
+                      }
+                    }}
+                  >
+                    <ProfileDisplayName>
+                      {tweetObj.author.displayName}
+                    </ProfileDisplayName>
+                  </ProfileLink>
+                  <SmallText>
+                    <p>@{tweetObj.author.handle}</p>
+                    <p>·</p>
+                    <p>{moment(tweetObj.timestamp).format("MMM Do")}</p>
+                  </SmallText>
+                </TweetProfileInfo>
+                <TweetStatus>{tweetObj.status}</TweetStatus>
+                {tweetObj.media.map((photo) => {
+                  if (photo !== []) {
+                    return <FeedContentImg key="content-img" src={photo.url} />;
+                  }
+                })}
+              </TweetContent>
+            </TweetSection>
+          </div>
+          <ActionBar
+            isLiked={tweetObj.isLiked}
+            isRetweeted={tweetObj.isRetweeted}
+            numLikes={tweetObj.numLikes}
+            numRetweets={tweetObj.numRetweets}
+            likedBy={tweetObj.likedBy}
+            retweetedBy={tweetObj.retweetedBy}
+            tweetId={tweetObj.id}
+          />
         </TweetBox>
       </div>
     </>
