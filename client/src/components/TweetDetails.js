@@ -32,17 +32,22 @@ const TweetDetails = () => {
     const singleTweet = tweet.tweet;
     return (
       <div key={singleTweet.id}>
-        <div></div>
-        <img src={singleTweet.author.avatarSrc} />
-        <p>{singleTweet.author.displayName}</p>
-        <p>{singleTweet.author.handle}</p>
-        <p>{moment(singleTweet.timestamp).format("h:mm A · MMM Do, YYYY")}</p>
-        <p>{singleTweet.status}</p>
+        <TweetHeader>
+          <TweetProfilePhoto src={singleTweet.author.avatarSrc} />
+          <div>
+            <h2>{singleTweet.author.displayName}</h2>
+            <p>@{singleTweet.author.handle}</p>
+          </div>
+        </TweetHeader>
+        <Status>{singleTweet.status}</Status>
         {singleTweet.media.map((photo) => {
           if (photo !== []) {
-            return <img key={singleTweet.id} src={photo.url} />;
+            return <ContentPhoto key={singleTweet.id} src={photo.url} />;
           }
         })}
+        <DateTime>
+          {moment(singleTweet.timestamp).format("h:mm A · MMM Do, YYYY")}
+        </DateTime>
         <ActionBar />
       </div>
     );
@@ -56,3 +61,39 @@ const TweetDetails = () => {
 };
 
 export default TweetDetails;
+
+const TweetProfilePhoto = styled.img`
+  padding: 20px 15px 20px 20px;
+  width: 75px;
+  height: 75px;
+  border-radius: 70px;
+`;
+
+const TweetHeader = styled.div`
+  display: flex;
+  h2 {
+    padding: 35px 0px 5px;
+    font-weight: 700;
+  }
+  p {
+    color: grey;
+  }
+`;
+
+const ContentPhoto = styled.img`
+  padding: 20px 20px 0px;
+  height: 58vh;
+  width: 90%;
+  border-radius: 50px;
+  object-fit: cover;
+`;
+
+const Status = styled.p`
+  font-size: 24px;
+  padding-left: 20px;
+`;
+
+const DateTime = styled.p`
+  padding: 20px;
+  color: grey;
+`;

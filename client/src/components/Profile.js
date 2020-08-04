@@ -2,11 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { COLORS } from "../constants";
+import moment from "moment";
 
-import ProfileFeed from "./ProfileFeed";
 import ErrorScreen from "./Errors/ErrorScreen";
 import { CurrentUserContext } from "./CurrentUserContext";
 import LoadingWheel from "./LoadingWheel";
+import ProfileBar from "./ProfileBar";
 
 const Profile = () => {
   const { error } = useContext(CurrentUserContext);
@@ -35,27 +37,33 @@ const Profile = () => {
       <Wrapper>
         <Banner src={user.bannerSrc} />
         <ProfilePic src={user.avatarSrc} />
-        <button>Follow</button>
-        <p>{user.displayName}</p>
-        <p>@{user.handle}</p>
-        <p>{user.bio}</p>
-        <p>
-          <FiMapPin />
-          {user.location}
-        </p>
-        <p>
-          <FiCalendar />
-          {user.joined}
-        </p>
-        <ProfileFeed />
+        <FollowButton>Follow</FollowButton>
+        <Name>{user.displayName}</Name>
+        <Handle>@{user.handle}</Handle>
+        <Bio>{user.bio}</Bio>
+        <Details>
+          <p>
+            <FiMapPin />
+            {user.location}
+          </p>
+          <p>
+            <FiCalendar />
+            Joined {moment(user.joined).format("MMMM YYYY")}
+          </p>
+        </Details>
+        <Follows>
+          <p>
+            <span>{user.numFollowing}</span> Following
+          </p>
+          <p>
+            <span>{user.numFollowers}</span> Followers
+          </p>
+        </Follows>
+        <ProfileBar profileId={profileId} />
       </Wrapper>
     );
   } else {
-    return (
-      <LoadingDiv>
-        <LoadingWheel />
-      </LoadingDiv>
-    );
+    return <LoadingWheel />;
   }
 };
 
@@ -81,6 +89,48 @@ const Banner = styled.img`
   object-position: center;
 `;
 
-const LoadingDiv = styled.div`
-  align-items: center;
+const Name = styled.p`
+  font-weight: bold;
+  font-size: 22px;
+  padding: 5px 20px;
+`;
+const Handle = styled.p`
+  padding: 0px 20px;
+  color: grey;
+`;
+const Bio = styled.p`
+  padding: 15px 20px;
+`;
+
+const FollowButton = styled.button`
+  position: absolute;
+  right: 25px;
+  top: 275px;
+  width: 180px;
+  padding: 10px 25px;
+  font-size: 20px;
+  background-color: ${COLORS.primary};
+  border: none;
+  color: white;
+  border-radius: 25px;
+`;
+
+const Follows = styled.div`
+  display: flex;
+  p {
+    padding: 15px 20px 20px;
+    span {
+      font-weight: bold;
+    }
+  }
+`;
+const Details = styled.div`
+  display: flex;
+  svg {
+    padding-right: 5px;
+  }
+  p {
+    padding: 0px 20px;
+    color: grey;
+  }
 `;

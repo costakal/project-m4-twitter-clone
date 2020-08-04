@@ -21,9 +21,9 @@ const TweetInput = () => {
       setDisable(false);
     }
     if (charCount < 55 && charCount > 0) {
-      setCountColor("yellow");
+      setCountColor("#f5c338");
     } else if (charCount <= 0) {
-      setCountColor("red");
+      setCountColor("#c90404");
     } else {
       setCountColor("#d0d0d0");
     }
@@ -86,6 +86,12 @@ const InputBox = styled.div`
   }
 `;
 const CharacterCounter = styled.p`
+  position: absolute;
+  top: 140px;
+  right: 100px;
+  margin: 10px;
+  padding: 12px 18px;
+
   color: #d0d0d0;
 `;
 

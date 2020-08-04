@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import ActionBar from "./ActionBar";
 import Retweets from "./Retweets";
@@ -117,8 +117,7 @@ const FeedDisplayImg = styled.img`
 const FeedContentImg = styled.img`
   padding: 10px 5px;
   border-radius: 25px;
-  height: 500px;
-  width: 80%;
-  max-width: 500px;
+  height: 400px;
+  width: 90%;
   object-fit: cover;
 `;
